@@ -1,0 +1,8 @@
+git init
+git remote add origin https://github.com/bhagwatsingh/api.profit-funnels.in.git
+
+git checkout -b main
+git add .
+git commit -m "Init"
+git branch -M main
+git push -u origin main
