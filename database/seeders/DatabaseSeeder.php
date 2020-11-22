@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
+use Spatie\Permission\PermissionRegistrar;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
+        Schema::disableForeignKeyConstraints();
+        $this->call(RoleSeeder::class);
+        $this->call(CountrySeeder::class);
+        $this->call(CurrencySeeder::class);
+        $this->call(UserSeeder::class);
+        Schema::enableForeignKeyConstraints();
     }
 }

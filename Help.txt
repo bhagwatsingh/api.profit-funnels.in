@@ -24,20 +24,18 @@ php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvid
 
 
 composer require yajra/laravel-datatables:^1.5
+php artisan vendor:publish --tag=datatables
 
 
-
-cd [..LARAVEL PROJECT ROOT]
-sudo find . -type f -exec chmod 644 {} \;
-sudo find . -type d -exec chmod 755 {} \;
-sudo chmod -R 775 ./storage
-sudo chmod -R 775 ./bootstrap/cache/
-
-
+php artisan:migrate
+php artisan db:seed
+php artisan passport:install
 
 php artisan make:migration create_currencies_table --create=currencies
 php artisan make:migration add_fields_to_users_table --table=users
 php artisan make:seeder CountrySeeder
+
+
 
 
 -----------PERMISSOIN
@@ -53,6 +51,8 @@ for apache use:
 ps aux | egrep '(apache|httpd)'
 
 
+--------------------------------------
+
 sudo adduser daemon www-data
 sudo adduser root www-data
 sudo adduser $USER www-data
@@ -63,6 +63,14 @@ sudo find ./storage -type d -exec chmod 775 {} \;
 
 sudo find ./bootstrap/cache/ -type f -exec chmod 664 {} \;    
 sudo find ./bootstrap/cache/ -type d -exec chmod 775 {} \;
+
+
+cd [..LARAVEL PROJECT ROOT]
+sudo find . -type f -exec chmod 644 {} \;
+sudo find . -type d -exec chmod 755 {} \;
+sudo chmod -R 775 ./storage
+sudo chmod -R 775 ./bootstrap/cache/
+
 
 sudo chown -R $USER:www-data ./bootstrap/cache/
 sudo chown -R $USER:www-data ./storage
